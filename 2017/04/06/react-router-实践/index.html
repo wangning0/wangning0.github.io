@@ -1,0 +1,434 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="Wing Wang"><title>react-router 实践 · wing</title><meta name="description" content="React-router路由实践首先，在该项目开始之前，还请大家能够先下载一个项目脚手架。本教程基于该脚手架进行开发
+Router,hashHistory,Route首先下载react-router
+npm install react-router --save
+需要注意的是，react-route"><meta name="keywords" content="HTML,CSS,JS,Node,C++n"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="/images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"></head><body><div class="sidebar animated fadeInDown"><div class="logo-title"><div class="title"><img src="/images/logo@2x.png" style="width:127px;"><h3 title=""><a href="/">wing</a></h3><div class="description"><p>Nothing lasts forever.</p></div></div></div><ul class="social-links"><li><a href="http://weibo.com/一叶知秋ZzzWwwn"><i class="fa fa-weibo"></i></a></li></ul><div class="footer"><a target="_blank" href="/"><span>Theme by </span></a><a href="https://www.caicai.me"> CaiCai</a><span>&</span><a href="https://github.com/Ben02/hexo-theme-Anatole"> Ben</a><div class="by_farbox"><a href="https://hexo.io/zh-cn/" target="_blank">Proudly published with Hexo&#65281;</a></div></div></div><div class="main"><div class="page-top animated fadeInDown"><div class="nav"><li><a href="/">首页</a></li><li><a href="/about">关于</a></li><li><a href="/archives">归档</a></li></div><div class="information"><div class="back_btn"><li><a onclick="window.history.go(-1)" class="fa fa-chevron-left"> </a></li></div><div class="avatar"><img src="https://avatars3.githubusercontent.com/u/9164818?v=3&amp;s=460"></div></div></div><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>react-router 实践</a></h3></div><div class="post-content"><h1 id="React-router路由实践"><a href="#React-router路由实践" class="headerlink" title="React-router路由实践"></a>React-router路由实践</h1><p>首先，在该项目开始之前，还请大家能够先下载一个<a href="https://github.com/wangning0/other/tree/master/react-gulp-hanging" target="_blank" rel="external">项目脚手架</a>。本教程基于该脚手架进行开发</p>
+<h2 id="Router-hashHistory-Route"><a href="#Router-hashHistory-Route" class="headerlink" title="Router,hashHistory,Route"></a>Router,hashHistory,Route</h2><p>首先下载react-router</p>
+<p><code>npm install react-router --save</code></p>
+<p>需要注意的是，react-router更新很快，API也在持续升级，也许你看到市面很多教程，但可能那还是1.x甚至是0.x版本的。</p>
+<p>我们首先在App.jsx写一个简单示例，让你快速的对react-router有印象。</p>
+<p>代码清单：<code>app/container/App/App.jsx</code></p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, hashHistory } from &apos;react-router&apos;;
+
+const Home = () =&gt; &lt;div&gt;&lt;h1&gt;Home&lt;/h1&gt;&lt;/div&gt;;
+const About = () =&gt; &lt;div&gt;&lt;h1&gt;About&lt;/h1&gt;&lt;/div&gt;;
+const Contact = () =&gt; &lt;div&gt;&lt;h1&gt;Contact&lt;/h1&gt;&lt;/div&gt;;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home} /&gt;
+        &lt;Route path=&quot;/about&quot; component={About} /&gt;
+        &lt;Route path=&quot;/contact&quot; component={Contact} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="Link"><a href="#Link" class="headerlink" title="Link"></a>Link</h2><p>Link是react-router提供的导航组件，可以直接使用进行路由切换</p>
+<p>代码清单：<code>app/container/App/App.jsx</code></p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, hashHistory, Link } from &apos;react-router&apos;;
+
+const Home = () =&gt; &lt;div&gt;&lt;h1&gt;Home&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const About = () =&gt; &lt;div&gt;&lt;h1&gt;About&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const Contact = () =&gt; &lt;div&gt;&lt;h1&gt;Contact&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+    &lt;Link to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home} /&gt;
+        &lt;Route path=&quot;/about&quot; component={About} /&gt;
+        &lt;Route path=&quot;/contact&quot; component={Contact} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="browserHistory"><a href="#browserHistory" class="headerlink" title="browserHistory"></a>browserHistory</h2><p>browserHistory和hashHistory不一样，使用browserHistory的时候，浏览器中导航栏的URL就不会出现_k的hash键值对。实际项目中也一般用browserHistory.</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, browserHistory, Link } from &apos;react-router&apos;;
+
+const Home = () =&gt; &lt;div&gt;&lt;h1&gt;Home&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const About = () =&gt; &lt;div&gt;&lt;h1&gt;About&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const Contact = () =&gt; &lt;div&gt;&lt;h1&gt;Contact&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+    &lt;Link to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={browserHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home} /&gt;
+        &lt;Route path=&quot;/about&quot; component={About} /&gt;
+        &lt;Route path=&quot;/contact&quot; component={Contact} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><p>这样正常点击路由切换没有问题，但是重新刷新URL就会报找不到路由，这个时候我们在webpack-dev-server启动的时候需要加上参数<code>--history-api-fallback</code>。</p>
+<h2 id="activeStyle-activeClassName"><a href="#activeStyle-activeClassName" class="headerlink" title="activeStyle,activeClassName"></a>activeStyle,activeClassName</h2><p>当前路由被点击处于触发显示状态的时候，我们可以使用activeStyle来给路由设置一些颜色</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, browserHistory, Link } from &apos;react-router&apos;;
+
+const Home = () =&gt; &lt;div&gt;&lt;h1&gt;Home&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const About = () =&gt; &lt;div&gt;&lt;h1&gt;About&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const Contact = () =&gt; &lt;div&gt;&lt;h1&gt;Contact&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link activeStyle={{color: 'red'}} to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link activeStyle={{color: 'red'}} to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+    &lt;Link activeStyle={{color: 'red'}} to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={browserHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home} /&gt;
+        &lt;Route path=&quot;/about&quot; component={About} /&gt;
+        &lt;Route path=&quot;/contact&quot; component={Contact} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><p>同理，我们还可以使用activeClassName来将路由激活状态的样式抽取出来。</p>
+<p>我们在App.css写一个样式，代码清单：<code>app/containers/App/App.jsx</code></p>
+<pre><code>.active {
+  color: red;
+}
+</code></pre><p>然后修改App.jsx</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, browserHistory, Link } from &apos;react-router&apos;;
+
+import &apos;./App.css&apos;;
+
+const Home = () =&gt; &lt;div&gt;&lt;h1&gt;Home&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const About = () =&gt; &lt;div&gt;&lt;h1&gt;About&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const Contact = () =&gt; &lt;div&gt;&lt;h1&gt;Contact&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={browserHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home} /&gt;
+        &lt;Route path=&quot;/about&quot; component={About} /&gt;
+        &lt;Route path=&quot;/contact&quot; component={Contact} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="路由嵌套"><a href="#路由嵌套" class="headerlink" title="路由嵌套"></a>路由嵌套</h2><p>刚才讲的是简单路由的切换，但实际应用中，路由是分多个层级的。幸运的是，我们可以使用react-router的路由嵌套来清晰的管理路由和组件之间的切换展示。</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, browserHistory, Link } from &apos;react-router&apos;;
+
+import &apos;./App.css&apos;;
+
+const Home = (props) =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Home&lt;/h1&gt;
+    &lt;Links /&gt;
+    {props.children}
+  &lt;/div&gt;
+
+const About = (props) =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;About&lt;/h1&gt;
+    {props.children}
+  &lt;/div&gt;
+
+const Contact = () =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Contact&lt;/h1&gt;
+  &lt;/div&gt;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/about/contact&quot;&gt;Contact&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={browserHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home}&gt;
+          &lt;Route path=&quot;about&quot; component={About}&gt;
+            &lt;Route path=&quot;contact&quot; component={Contact} /&gt;
+          &lt;/Route&gt;
+        &lt;/Route&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="IndexRoute"><a href="#IndexRoute" class="headerlink" title="IndexRoute"></a>IndexRoute</h2><p>IndexRoute即处理页面初始进入时候的组件展示，等路由切换的时候，再根据其他路由规则进行组件的切换展示。</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, browserHistory, Link, IndexRoute } from &apos;react-router&apos;;
+
+import &apos;./App.css&apos;;
+
+const Home = (props) =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Home&lt;/h1&gt;
+    &lt;Links /&gt;
+    {props.children}
+  &lt;/div&gt;
+
+const About = () =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;About&lt;/h1&gt;
+  &lt;/div&gt;
+
+const Contact = () =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;Contact&lt;/h1&gt;
+  &lt;/div&gt;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link activeClassName=&quot;active&quot; to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={browserHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home}&gt;
+          &lt;IndexRoute component={About} /&gt;
+          &lt;Route path=&quot;contact&quot; component={Contact} /&gt;
+        &lt;/Route&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><p>##路由变量<br>刚才展示的是常规的路由，路由中的规则是给定的，现在我们尝试使用路由变量，在组件中获取这个路由的变量，并做相应的组件展示。</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, hashHistory, Link, IndexRoute } from &apos;react-router&apos;;
+
+import &apos;./App.css&apos;;
+
+const Message = (props) =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;{props.params.message || &apos;Hello&apos;}&lt;/h1&gt;
+    &lt;Links /&gt;
+  &lt;/div&gt;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link to=&quot;/&quot;&gt;Hello&lt;/Link&gt;
+    &lt;Link to=&quot;/yong&quot;&gt;Yong&lt;/Link&gt;
+    &lt;Link to=&quot;/feng&quot;&gt;Feng&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/(:message)&quot; component={Message} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><p>##Route中components参数的高级用法</p>
+<p>Route中components中接收的参数不仅仅只是实际的组件，还可以是对象，通过这样的用法，我们可以更灵活的控制组件的展示。</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, hashHistory, Link, IndexRoute } from &apos;react-router&apos;;
+
+import &apos;./App.css&apos;;
+
+const HomeHeader = () =&gt; &lt;h1&gt;HomeHeader&lt;/h1&gt;
+const HomeBody = () =&gt; &lt;h1&gt;HomeBody&lt;/h1&gt;
+const AboutHeader = () =&gt; &lt;h1&gt;AboutHeader&lt;/h1&gt;
+const AboutBody = () =&gt; &lt;h1&gt;AboutBody&lt;/h1&gt;
+
+const Container = (props) =&gt;
+  &lt;div&gt;
+    {props.header}
+    {props.body}
+    &lt;Links /&gt;
+  &lt;/div&gt;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link to=&quot;/&quot;&gt;Hello&lt;/Link&gt;
+    &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Container}&gt;
+          &lt;IndexRoute components={{ header:HomeHeader, body:HomeBody }} /&gt;
+          &lt;Route path=&quot;about&quot; components={{ header:AboutHeader, body:AboutBody }} /&gt;
+        &lt;/Route&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="使用query获取URL中的参数"><a href="#使用query获取URL中的参数" class="headerlink" title="使用query获取URL中的参数"></a>使用query获取URL中的参数</h2><p>我们可以将URL中访问的参数获取，并且应用到组件中。</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, hashHistory, Link, IndexRoute } from &apos;react-router&apos;;
+
+import &apos;./App.css&apos;;
+
+const Page = (props) =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;{props.location.query.message || &apos;Hello&apos;}&lt;/h1&gt;
+  &lt;/div&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Page} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><p>然后在url中输入<code>http://localhost:8080/#/?message=wn</code>，页面中就会显示wn。</p>
+<p>另外，我们还可以在Link组件中设置pathname和query变量</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, hashHistory, Link, IndexRoute } from &apos;react-router&apos;;
+
+import &apos;./App.css&apos;;
+
+const Page = (props) =&gt;
+  &lt;div&gt;
+    &lt;h1&gt;{props.location.query.message || &apos;Hello&apos;}&lt;/h1&gt;
+  &lt;/div&gt;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link to={{ pathname: "/", query: {message: "guoyongfeng"} }} /&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Page} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="Redirect重定向"><a href="#Redirect重定向" class="headerlink" title="Redirect重定向"></a>Redirect重定向</h2><pre><code>import React, { Component } from &apos;react&apos;;
+import { Router, Route, hashHistory, Link, Redirect } from &apos;react-router&apos;;
+
+const Home = () =&gt; &lt;div&gt;&lt;h1&gt;Home&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const About = () =&gt; &lt;div&gt;&lt;h1&gt;About&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+const Contact = () =&gt; &lt;div&gt;&lt;h1&gt;Contact&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link to=&quot;/about&quot;&gt;About&lt;/Link&gt;
+    &lt;Link to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt;
+    &lt;Link to=&quot;/contact-us&quot;&gt;Contact US&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home} /&gt;
+        &lt;Route path=&quot;/about&quot; component={About} /&gt;
+        &lt;Route path=&quot;/contact-us&quot; component={Contact} /&gt;
+        &lt;Redirect from=&quot;/contact&quot; to=&quot;/contact-us&quot; /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="setRouteLeaveHook路由钩子函数：处理路由切换时的操作"><a href="#setRouteLeaveHook路由钩子函数：处理路由切换时的操作" class="headerlink" title="setRouteLeaveHook路由钩子函数：处理路由切换时的操作"></a>setRouteLeaveHook路由钩子函数：处理路由切换时的操作</h2><pre><code>import React, { Component, PropTypes } from &apos;react&apos;;
+import { Router, Route, hashHistory, Link } from &apos;react-router&apos;;
+
+class Home extends Component {
+  componentWillMount(){
+    this.context.router.setRouteLeaveHook(
+      this.props.route,
+      this.routerWillLeave
+    )
+  }
+  routerWillLeave( nextLocation ){
+    return `页面即将从Home切换到${nextLocation.pathname}`
+  }
+  render(){
+    return &lt;div&gt;
+      &lt;h1&gt;Home&lt;/h1&gt;
+      &lt;Links /&gt;
+    &lt;/div&gt;
+  }
+}
+
+Home.contextTypes = {
+  router: PropTypes.object.isRequired
+};
+
+const Contact = () =&gt; &lt;div&gt;&lt;h1&gt;Contact&lt;/h1&gt;&lt;Links /&gt;&lt;/div&gt;;
+
+const Links = () =&gt;
+  &lt;nav&gt;
+    &lt;Link to=&quot;/&quot;&gt;Home&lt;/Link&gt;
+    &lt;Link to=&quot;/contact&quot;&gt;Contact&lt;/Link&gt;
+  &lt;/nav&gt;
+
+class App extends Component {
+  render() {
+    return (
+      &lt;Router history={hashHistory}&gt;
+        &lt;Route path=&quot;/&quot; component={Home} /&gt;
+        &lt;Route path=&quot;/contact&quot; component={Contact} /&gt;
+      &lt;/Router&gt;
+    );
+  }
+}
+
+export default App;
+</code></pre><h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>总的来说，react-router的学习难度不高，但是会有不同版本间API升级的坑，后续大家持续关注，或是使用某一个自己熟悉的react-router版本。</p>
+</div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2017-04-06</span><i class="fa fa-tag"></i><a href="/tags/react/" title="react" class="tag">react </a></div></div></div></div><div class="share"><div class="evernote"> <a href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank" class="fa fa-bookmark"></a></div><div class="weibo"> <a href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));" class="fa fa-weibo"></a></div><div class="twitter"> <a href="http://twitter.com/home?status=,http://yoursite.com/2017/04/06/react-router-实践/,wing,react-router 实践,;" class="fa fa-twitter"></a></div></div><div class="pagination"><ul class="clearfix"><li class="pre pagbuttons"><a role="navigation" href="/2017/04/06/新博客/" title="新博客" class="btn">上一篇</a></li></ul></div></div></div></div></div><script src="/js/jquery.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script></body></html>
